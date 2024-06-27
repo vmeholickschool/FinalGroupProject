@@ -1,0 +1,6 @@
+@final_project_career_hub_app_HostAddress = http://localhost:5211
+
+GET {{final_project_career_hub_app_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
