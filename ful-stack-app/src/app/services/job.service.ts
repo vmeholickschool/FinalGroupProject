@@ -13,6 +13,7 @@ export class JobService {
   constructor(private http:HttpClient) { }
 
   getJobs(query:string): Observable<Job[]> {
-    return this.http.get<Job[]>(this.jobsUrl + query);
+    const url = query ? `${this.jobsUrl}?${query}` : this.jobsUrl;
+    return this.http.get<Job[]>(url);
   }
 }
