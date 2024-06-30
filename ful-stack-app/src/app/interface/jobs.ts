@@ -1,3 +1,4 @@
+// src/app/models/job.ts
 export interface Job {
     jobId: number;
     jobTitle: string;
@@ -8,4 +9,5 @@ export interface Job {
     salaryRange: string;
     jobDescription: string;
     experienceLevel: string;
+    status: string; 
 }

@@ -1,20 +1,20 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { JobSearchComponent } from "./components/job-search/job-search.component";
-import { JobListComponent } from "./componets/job-list/job-list.component";
-import { CityInfoComponent } from "./components/city-info/city-info.component";
-import { SavedJobsComponent } from "./components/saved-jobs/saved-jobs.component";
+// src/app/app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { JobSearchComponent } from './components/job-search/job-search.component';
+import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component';
+import { CityInfoComponent } from './components/city-info/city-info.component';
 
 const routes: Routes = [
-    {path: '', component: JobSearchComponent},
-    {path: 'job-search', component: JobSearchComponent},
-    {path: 'job-list', component: JobListComponent},
-    {path: 'city-info', component: CityInfoComponent},
-    {path: 'saved-jobs', component: SavedJobsComponent}
+  { path: 'job-search', component: JobSearchComponent },
+  { path: 'saved-jobs', component: SavedJobsComponent },
+  { path: 'city-info', component: CityInfoComponent },
+  { path: '', redirectTo: '/job-search', pathMatch: 'full' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

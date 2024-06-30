@@ -1,12 +1,44 @@
-import { Component } from '@angular/core';
+// src/app/job-search/job-search.component.ts
+import { Component, OnInit } from '@angular/core';
+import { JobService } from '../../services/job.service';
+import { Job } from '../../interface/jobs';
+
 
 @Component({
   selector: 'app-job-search',
-  standalone: true,
-  imports: [],
   templateUrl: './job-search.component.html',
-  styleUrl: './job-search.component.css'
+  styleUrls: ['./job-search.component.scss']
 })
-export class JobSearchComponent {
+export class JobSearchComponent implements OnInit {
+updateJobStatus(_t11: any,arg1: any) {
+throw new Error('Method not implemented.');
+}
+  jobs: Job[] = [];
+  searchQuery: string = '';
 
+  constructor(private jobService: JobService) { }
+
+  ngOnInit(): void {
+    this.getJobs();
+  }
+
+  getJobs(query?: string): void {
+    this.jobService.getJobs().subscribe(jobs => {
+      if (query) {
+        this.jobs = jobs.filter(job => 
+          job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
+          job.companyName.toLowerCase().includes(query.toLowerCase()) ||
+          job.city.toLowerCase().includes(query.toLowerCase()) ||
+          job.state.toLowerCase().includes(query.toLowerCase()) ||
+          job.jobDescription.toLowerCase().includes(query.toLowerCase())
+        );
+      } else {
+        this.jobs = jobs;
+      }
+    });
+  }
+
+  saveJob(job: Job): void {
+    this.jobService.saveJob(job).subscribe();
+  }
 }

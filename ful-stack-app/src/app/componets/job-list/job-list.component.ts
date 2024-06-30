@@ -1,52 +1,47 @@
+// src/app/job-list/job-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Job } from '../../interface/jobs';
 import { JobService } from '../../services/job.service';
-import { ActivatedRoute, Router, RouterLinkActive, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Job } from '../../interface/jobs';
+
+
 
 @Component({
   selector: 'app-job-list',
-  standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, RouterLinkActive],
   templateUrl: './job-list.component.html',
-  styleUrl: './job-list.component.css'
+  styleUrls: ['./job-list.component.scss']
 })
-export class JobListComponent implements OnInit{
+export class JobListComponent implements OnInit {
   jobs: Job[] = [];
   searchQuery: string = '';
-  newJob: Job = {
-    jobId: 0,
-    jobTitle: '',
-    companyName: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    salaryRange: '',
-    jobDescription: '',
-    experienceLevel: ''
-    
-  };
-  
 
-  constructor(private jobService: JobService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
-    this.getJobs('');
-    }
-  
+    this.getJobs();
+  }
 
-    getJobs(query: string): void {
-      this.jobService.getJobs(query).subscribe(jobs => this.jobs = jobs);
-    }
-
-  saveJob(job: Job) {
-    console.log('Job saved', job);
+  getJobs(query?: string): void {
+    this.jobService.getJobs().subscribe(jobs => {
+      if (query) {
+        this.jobs = jobs.filter(job => 
+          job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
+          job.companyName.toLowerCase().includes(query.toLowerCase()) ||
+          job.city.toLowerCase().includes(query.toLowerCase()) ||
+          job.state.toLowerCase().includes(query.toLowerCase()) ||
+          job.jobDescription.toLowerCase().includes(query.toLowerCase())
+        );
+      } else {
+        this.jobs = jobs;
+      }
+    });
   }
 
   viewJob(job: Job): void {
-    console.log('View job', job);
-    this.router.navigate(['/job-list', job.jobId]);
+    // Implement view job details functionality if needed
   }
 
+  saveJob(job: Job): void {
+    // Assuming saveJob is implemented in JobService
+    this.jobService.saveJob(job).subscribe();
+  }
 }

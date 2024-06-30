@@ -1,24 +1,24 @@
+<!-- src/app/job-search/job-search.component.html -->
 <div class="container">
-    <h2>Job Listings</h2>
-    <div class="search-box">
-        <input type="text" [(ngModel)]="searchQuery" placeholder="Search jobs..." class="search-input">
-        <button (click)="getJobs(searchQuery)" class="search-button">Search</button>
-    </div>
+  <h2>Job Search</h2>
+  <div class="search-box">
+    <input type="text" #searchInput placeholder="Search jobs..." class="search-input">
+    <button (click)="getJobs(searchInput.value)" class="search-button">Search</button>
+  </div>
 
-    <div *ngIf="jobs && jobs.length > 0; else noJobsTemplate">
-        <ul class="job-list">
-            <li *ngFor="let job of jobs" class="job-item">
-                <h3>{{ job.jobTitle }} at {{ job.companyName }}</h3>
-                <p><strong>Location:</strong> {{ job.city }}, {{ job.state }}</p>
-                <p><strong>Description:</strong> {{ job.jobDescription }}</p>
-                <p><strong>Salary Range:</strong> {{ job.salaryRange }}</p>
-                <button (click)="viewJob(job)" class="view-button">View Details</button>
-                <button (click)="saveJob(job)" class="save-button">Save Job</button>
-            </li>
-        </ul>
-    </div>
+  <div *ngIf="jobs && jobs.length > 0; else noJobsTemplate">
+    <ul class="job-list">
+      <li *ngFor="let job of jobs" class="job-item">
+        <h3>{{ job.jobTitle }} at {{ job.companyName }}</h3>
+        <p><strong>Location:</strong> {{ job.city }}, {{ job.state }}</p>
+        <p><strong>Description:</strong> {{ job.jobDescription }}</p>
+        <p><strong>Salary Range:</strong> {{ job.salaryRange }}</p>
+        <button (click)="saveJob(job)" class="save-button">Save Job</button>
+      </li>
+    </ul>
+  </div>
 
-    <ng-template #noJobsTemplate>
-        <p>No jobs found. Try adjusting your search criteria.</p>
-    </ng-template>
+  <ng-template #noJobsTemplate>
+    <p>No jobs found. Try adjusting your search criteria.</p>
+  </ng-template>
 </div>
