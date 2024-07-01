@@ -1,0 +1,23 @@
+<!-- src/app/saved-jobs/saved-jobs.component.html -->
+<div class="container">
+  <h2>Saved Jobs</h2>
+  <div *ngIf="savedJobs && savedJobs.length > 0; else noSavedJobsTemplate">
+    <ul class="saved-job-list">
+      <li *ngFor="let job of savedJobs" class="saved-job-item">
+        <h3>{{ job.jobTitle }} at {{ job.companyName }}</h3>
+        <p><strong>Location:</strong> {{ job.city }}, {{ job.state }}</p>
+        <p><strong>Status:</strong>
+          <select [(ngModel)]="job.status" (change)="updateJobStatus(job, job.status)">
+            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+          </select>
+        </p>
+        <p><strong>Description:</strong> {{ job.jobDescription }}</p>
+        <p><strong>Salary Range:</strong> {{ job.salaryRange }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noSavedJobsTemplate>
+    <p>No saved jobs found.</p>
+ 
+
