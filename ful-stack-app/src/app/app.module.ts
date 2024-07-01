@@ -11,19 +11,22 @@ import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component
 import { CityInfoComponent } from './components/city-info/city-info.component';
 import { JobService } from './services/job.service';
 import { TripfinderService } from './services/tripfinder';
+import {  RouterModule } from '@angular/router';
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    JobSearchComponent,
-    SavedJobsComponent,
-    CityInfoComponent
-  ],
+  declarations: [  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
+    JobSearchComponent,
+    SavedJobsComponent,
+    CityInfoComponent,
+    AppComponent
   ],
   providers: [JobService, TripfinderService],
   bootstrap: [AppComponent]

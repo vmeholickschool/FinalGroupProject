@@ -2,11 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TripfinderService } from '../../services/tripfinder';
 import { City } from '../../interface/city';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-city-info',
   templateUrl: './city-info.component.html',
-  styleUrls: ['./city-info.component.scss']
+  styleUrls: ['./city-info.component.css'],
+  standalone: true,
+  imports: [FormsModule]
+
 })
 export class CityInfoComponent implements OnInit {
   city: string = '';
