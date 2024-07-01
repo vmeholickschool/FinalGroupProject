@@ -44,5 +44,46 @@ namespace final_project_career_hub_app.DAL
 			if (jobResults == null) { return null; }
 			return jobResults;
 		}
+		public async Task<List<JobDto>> GetJobByCompanyName(string companyName)
+		{
+			var lowerCompanyName = companyName.ToLower();
+			var jobResults = await _context.Jobs
+				.Where(j => j.CompanyName.ToLower().Contains(lowerCompanyName))
+				.Select(j => new JobDto
+				{
+					JobId = j.JobId,
+					JobTitle = j.JobTitle,
+					CompanyName = j.CompanyName,
+					City = j.City,
+					State = j.State,
+					ZipCode = j.ZipCode,
+					SalaryRange = j.SalaryRange,
+					JobDescription = j.JobDescription,
+					ExperienceLevel = j.ExperienceLevel
+				}).ToListAsync();
+			if (jobResults == null) { return null; }
+			return jobResults;
+		}
+		
+		public async Task<List<JobDto>> GetJobByKeyWords(string keyWords)
+		{
+			var lowerKeyWords = keyWords.ToLower();
+			var jobResults = await _context.Jobs
+				.Where(j => j.JobDescription.ToLower().Contains(lowerKeyWords))
+				.Select(j => new JobDto
+				{
+					JobId = j.JobId,
+					JobTitle = j.JobTitle,
+					CompanyName = j.CompanyName,
+					City = j.City,
+					State = j.State,
+					ZipCode = j.ZipCode,
+					SalaryRange = j.SalaryRange,
+					JobDescription = j.JobDescription,
+					ExperienceLevel = j.ExperienceLevel
+				}).ToListAsync();
+			if (jobResults == null) { return null; }
+			return jobResults;
+		}
 	}
 }
