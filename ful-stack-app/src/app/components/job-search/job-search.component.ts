@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../interface/jobs';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './job-search.component.html',
   styleUrls: ['./job-search.component.scss'],
   standalone: true,
-  imports: [FormsModule]
+  imports: [FormsModule, CommonModule]
 })
 
 export class JobSearchComponent implements OnInit {
@@ -32,8 +33,7 @@ throw new Error('Method not implemented.');
         this.jobs = jobs.filter(job => 
           job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
           job.companyName.toLowerCase().includes(query.toLowerCase()) ||
-          job.city.toLowerCase().includes(query.toLowerCase()) ||
-          job.state.toLowerCase().includes(query.toLowerCase()) ||
+          job.location.toLowerCase().includes(query.toLowerCase()) ||
           job.jobDescription.toLowerCase().includes(query.toLowerCase())
         );
       } else {
