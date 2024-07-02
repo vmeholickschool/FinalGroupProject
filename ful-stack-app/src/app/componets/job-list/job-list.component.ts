@@ -26,8 +26,7 @@ export class JobListComponent implements OnInit {
         this.jobs = jobs.filter(job => 
           job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
           job.companyName.toLowerCase().includes(query.toLowerCase()) ||
-          job.city.toLowerCase().includes(query.toLowerCase()) ||
-          job.state.toLowerCase().includes(query.toLowerCase()) ||
+          job.location.toLowerCase().includes(query.toLowerCase()) ||
           job.jobDescription.toLowerCase().includes(query.toLowerCase())
         );
       } else {
