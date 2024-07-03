@@ -43,5 +43,15 @@ namespace final_project_career_hub_app.Controllers
 			}
 			return Ok(jobs);
 		}
+		[HttpGet("Location/{location}")]
+		public async Task<ActionResult<List<JobDto>>> GetJobByLocation(string location)
+		{
+			var jobs = await _jobRepository.GetJobByLocation(location);
+			if (jobs == null)
+			{
+				return NotFound();
+			}
+			return Ok(jobs);
+		}
 	}
 }
