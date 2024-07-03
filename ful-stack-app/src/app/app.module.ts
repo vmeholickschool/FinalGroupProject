@@ -30,6 +30,6 @@ import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component
       SavedJobsComponent 
     ],
   providers: [JobService, TripfinderService],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }

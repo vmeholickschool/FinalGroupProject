@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TripfinderService } from '../../services/tripfinder';
 import { City } from '../../interface/city';
 import { FormsModule, NgForm } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 
 
 @Component({
