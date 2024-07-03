@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-job-search',
   templateUrl: './job-search.component.html',
-  styleUrls: ['./job-search.component.scss'],
+  styleUrls: ['./job-search.component.css'],
   standalone: true,
   imports: [FormsModule, CommonModule]
 })
