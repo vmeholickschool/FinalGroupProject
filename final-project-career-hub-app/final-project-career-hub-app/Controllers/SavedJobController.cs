@@ -1,9 +1,6 @@
 ﻿using final_project_career_hub_app.DAL;
 using final_project_career_hub_app.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace final_project_career_hub_app.Controllers
 {
@@ -18,19 +15,17 @@ namespace final_project_career_hub_app.Controllers
             _savedJobRepository = savedJobRepository;
         }
 
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SavedJob>>> GetSavedJobs()
+        public IActionResult GetSavedJobs()
         {
-            var savedJobs = await _savedJobRepository.GetAllSavedJobs();
+            var savedJobs = _savedJobRepository.GetAllSavedJobs();
             return Ok(savedJobs);
         }
 
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<SavedJob>> GetSavedJob(int id)
+        public IActionResult GetSavedJob(int id)
         {
-            var savedJob = await _savedJobRepository.GetSavedJobById(id);
+            var savedJob = _savedJobRepository.GetSavedJobById(id);
             if (savedJob == null)
             {
                 return NotFound();
@@ -38,60 +33,44 @@ namespace final_project_career_hub_app.Controllers
             return Ok(savedJob);
         }
 
-
         [HttpPost]
-        public async Task<ActionResult<SavedJob>> CreateSavedJob([FromBody] SavedJob savedJob)
+        public IActionResult CreateSavedJob([FromBody] SavedJobCreationDto savedJobDto)
         {
             if (ModelState.IsValid)
             {
-                await _savedJobRepository.AddSavedJob(savedJob);
-                return CreatedAtAction(nameof(GetSavedJob), new { id = savedJob.SaveId }, savedJob);
+                _savedJobRepository.AddSavedJob(savedJobDto);
+                return Ok();
             }
             return BadRequest(ModelState);
         }
 
- 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditSavedJob(int id, [FromBody] SavedJob savedJob)
+        public IActionResult UpdateSavedJob(int id, [FromBody] SavedJobUpdateDto savedJobDto)
         {
-            if (id != savedJob.SaveId)
-            {
-                return BadRequest();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _savedJobRepository.UpdateSavedJob(savedJob);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (await _savedJobRepository.GetSavedJobById(savedJob.SaveId) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return NoContent();
-            }
-            return BadRequest(ModelState);
-        }
-
-  
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSavedJob(int id)
-        {
-            var savedJob = await _savedJobRepository.GetSavedJobById(id);
+            var savedJob = _savedJobRepository.GetSavedJobById(id);
             if (savedJob == null)
             {
                 return NotFound();
             }
 
-            await _savedJobRepository.DeleteSavedJob(id);
+            savedJob.UserId = savedJobDto.UserId;
+            savedJob.JobId = savedJobDto.JobId;
+            savedJob.ApplicationStatus = savedJobDto.ApplicationStatus;
+
+            _savedJobRepository.UpdateSavedJob(savedJob);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSavedJob(int id)
+        {
+            var savedJob = _savedJobRepository.GetSavedJobById(id);
+            if (savedJob == null)
+            {
+                return NotFound();
+            }
+
+            _savedJobRepository.DeleteSavedJob(id);
             return NoContent();
         }
     }
