@@ -2,7 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TripfinderService } from '../../services/tripfinder';
 import { City } from '../../interface/city';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-city-info',
