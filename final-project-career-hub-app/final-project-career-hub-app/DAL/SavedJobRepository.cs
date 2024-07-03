@@ -12,43 +12,45 @@ namespace final_project_career_hub_app.DAL
             _context = context;
         }
 
-        public async Task<IEnumerable<SavedJob>> GetAllSavedJobs()
+        public List<SavedJob> GetAllSavedJobs()
         {
-            return await _context.SavedJobs.Include(s => s.Job).ToListAsync();
+            return _context.SavedJobs.Include(s => s.Job).ToList();
         }
 
-        public async Task<SavedJob> GetSavedJobById(int saveId)
+        public SavedJob GetSavedJobById(int saveId)
         {
-            return await _context.SavedJobs.Include(s => s.Job).FirstOrDefaultAsync(s => s.SaveId == saveId);
+            return _context.SavedJobs.Include(s => s.Job).FirstOrDefault(s => s.SaveId == saveId);
         }
 
-        public async Task AddSavedJob(SavedJob savedJob)
+        public void AddSavedJob(SavedJobCreationDto savedJobDto)
         {
+            var savedJob = new SavedJob
+            {
+                UserId = savedJobDto.UserId,
+                JobId = savedJobDto.JobId,
+                ApplicationStatus = savedJobDto.ApplicationStatus
+            };
+
             _context.SavedJobs.Add(savedJob);
-            await SaveAsync();
+            _context.SaveChanges();
         }
 
-        public async Task UpdateSavedJob(SavedJob savedJob)
+        public void UpdateSavedJob(SavedJob savedJob)
         {
-            _context.Entry(savedJob).State = EntityState.Modified;
-            await SaveAsync();
+            _context.SavedJobs.Update(savedJob);
+            _context.SaveChanges();
         }
 
-        public async Task DeleteSavedJob(int saveId)
+        public void DeleteSavedJob(int saveId)
         {
-            var savedJob = await GetSavedJobById(saveId);
+            var savedJob = GetSavedJobById(saveId);
             if (savedJob != null)
             {
                 _context.SavedJobs.Remove(savedJob);
-                await SaveAsync();
+                _context.SaveChanges();
             }
-        }
-
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
         }
     }
 }
-    
+
 
