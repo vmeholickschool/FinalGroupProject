@@ -16,9 +16,7 @@ namespace final_project_career_hub_app.DAL
 				JobId = j.JobId,
 				JobTitle = j.JobTitle,
 				CompanyName = j.CompanyName,
-				City = j.City,
-				State = j.State,
-				ZipCode = j.ZipCode,
+				Location = j.Location,
 				SalaryRange = j.SalaryRange,
 				JobDescription = j.JobDescription,
 				ExperienceLevel = j.ExperienceLevel
@@ -34,9 +32,7 @@ namespace final_project_career_hub_app.DAL
 					JobId = j.JobId,
 					JobTitle = j.JobTitle,
 					CompanyName = j.CompanyName,
-					City = j.City,
-					State = j.State,
-					ZipCode = j.ZipCode,
+					Location = j.Location,
 					SalaryRange = j.SalaryRange,
 					JobDescription = j.JobDescription,
 					ExperienceLevel = j.ExperienceLevel
@@ -54,9 +50,7 @@ namespace final_project_career_hub_app.DAL
 					JobId = j.JobId,
 					JobTitle = j.JobTitle,
 					CompanyName = j.CompanyName,
-					City = j.City,
-					State = j.State,
-					ZipCode = j.ZipCode,
+					Location = j.Location,
 					SalaryRange = j.SalaryRange,
 					JobDescription = j.JobDescription,
 					ExperienceLevel = j.ExperienceLevel
@@ -64,7 +58,24 @@ namespace final_project_career_hub_app.DAL
 			if (jobResults == null) { return null; }
 			return jobResults;
 		}
-		
+		public async Task<List<JobDto>> GetJobByLocation(string location)
+		{
+			var lowerLocation = location.ToLower();
+			var jobResults = await _context.Jobs
+				.Where(j => j.Location.ToLower().Contains(lowerLocation))
+				.Select(j => new JobDto
+				{
+					JobId = j.JobId,
+					JobTitle = j.JobTitle,
+					CompanyName = j.CompanyName,
+					Location = j.Location,
+					SalaryRange = j.SalaryRange,
+					JobDescription = j.JobDescription,
+					ExperienceLevel = j.ExperienceLevel
+				}).ToListAsync();
+			if (jobResults == null) { return null; }
+			return jobResults;
+		}
 		public async Task<List<JobDto>> GetJobByKeyWords(string keyWords)
 		{
 			var lowerKeyWords = keyWords.ToLower();
@@ -75,9 +86,7 @@ namespace final_project_career_hub_app.DAL
 					JobId = j.JobId,
 					JobTitle = j.JobTitle,
 					CompanyName = j.CompanyName,
-					City = j.City,
-					State = j.State,
-					ZipCode = j.ZipCode,
+					Location = j.Location,
 					SalaryRange = j.SalaryRange,
 					JobDescription = j.JobDescription,
 					ExperienceLevel = j.ExperienceLevel
@@ -85,5 +94,6 @@ namespace final_project_career_hub_app.DAL
 			if (jobResults == null) { return null; }
 			return jobResults;
 		}
+		
 	}
 }
