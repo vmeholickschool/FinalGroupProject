@@ -4,6 +4,7 @@ import { JobService } from '../../services/job.service';
 import { Job } from '../../interface/jobs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SavedJobsService } from '../../services/saved-jobs.service';
 
 @Component({
   selector: 'app-saved-jobs',
@@ -16,11 +17,12 @@ export class SavedJobsComponent implements OnInit {
   savedJobs: Job[] = [];
   statuses: string[] = ['Applied', 'Interview Scheduled', 'Pending Interview', 'Offer Received', 'Rejected'];
 
-  constructor(private jobService: JobService) { }
+  constructor(private jobService: JobService, private savedJobsService: SavedJobsService) { }
 
   ngOnInit(): void {
     this.getSavedJobs();
-  }
+    }
+  
 
   getSavedJobs(): void {
     this.jobService.getSavedJobs().subscribe(jobs => this.savedJobs = jobs);
