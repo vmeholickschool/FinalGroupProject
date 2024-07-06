@@ -20,10 +20,9 @@ export class SavedJobsComponent implements OnInit {
   constructor(private jobService: JobService, private savedJobsService: SavedJobsService) { }
 
   ngOnInit(): void {
-    this.savedJobsService.savedJob$.subscribe(savedJobs => {
-      this.savedJobs = savedJobs;
-    });
-  }
+    this.getSavedJobs();
+    }
+  
 
   getSavedJobs(): void {
     this.jobService.getSavedJobs().subscribe(jobs => this.savedJobs = jobs);

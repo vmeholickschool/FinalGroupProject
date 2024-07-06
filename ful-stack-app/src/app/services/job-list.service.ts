@@ -15,10 +15,5 @@ export class JobListService {
   updateSearchResults(results: Job[]) {
     this.searchResultsSource.next(results);
   }
-  saveJob(job:Job){
-    if(!this.savedJobs.includes(job)){
-      this.savedJobs.push(job);
-    }
-    return this.savedJobs;
-  }
+  
 }

@@ -13,20 +13,18 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,],
   standalone:true,
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
  
-  constructor(private jobListService: JobListService, private jobService: JobService, private savedJobsService: SavedJobsService) { }
+  constructor(private jobListService: JobListService, private jobService: JobService, private savedJobService: SavedJobsService) { }
 
   ngOnInit(): void {
     this.jobListService.searchResults$.subscribe(results =>{
-      this.jobs = results;
-      
-    });
+      this.jobs = results;});
   }
 
   /* getJobs(query?: string): void {
@@ -50,8 +48,6 @@ export class JobListComponent implements OnInit {
 
   saveJob(job: Job): void {
     // Assuming saveJob is implemented in JobService
-    console.log(job);
-    this.savedJobsService.saveJob(job);
-    
+    this.savedJobService.saveJob(job);
   }
 }

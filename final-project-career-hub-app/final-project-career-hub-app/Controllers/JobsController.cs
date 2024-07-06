@@ -22,6 +22,19 @@ namespace final_project_career_hub_app.Controllers
 			var jobs = await _jobRepository.GetAllJobsAsync();
 			return Ok(jobs);
 		}
+
+		[HttpGet("{id}")]
+		public async Task<ActionResult<JobDto>>GetJobById(int id)
+		{
+			var job = await _jobRepository.GetJobByIdAsync(id);
+			if (job == null)
+			{
+				return NotFound();
+			}
+			return Ok(job);
+		}
+
+
 		[HttpGet("search")]
 		public async Task<ActionResult<IEnumerable<Job>>> SearchJobs([FromQuery] string? jobTitle, [FromQuery] string? companyName, [FromQuery] string? location, [FromQuery] string? keywords)
 		{
