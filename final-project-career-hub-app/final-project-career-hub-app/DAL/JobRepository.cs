@@ -9,6 +9,7 @@ namespace final_project_career_hub_app.DAL
 		{
 			_context = jobDbContext;
 		}
+		
 		public async Task<IEnumerable<JobDto>> GetAllJobsAsync()
 		{
 			return await _context.Jobs.Select(j => new JobDto
@@ -16,74 +17,57 @@ namespace final_project_career_hub_app.DAL
 				JobId = j.JobId,
 				JobTitle = j.JobTitle,
 				CompanyName = j.CompanyName,
-				City = j.City,
-				State = j.State,
-				ZipCode = j.ZipCode,
+				Location = j.Location,
 				SalaryRange = j.SalaryRange,
 				JobDescription = j.JobDescription,
 				ExperienceLevel = j.ExperienceLevel
 			}).ToListAsync();
 		}
-		public async Task<List<JobDto>> GetJobByJobTitle (string jobTitle)
+		public async Task<JobDto> GetJobByIdAsync(int id) 
 		{
-			var lowerJobTitle = jobTitle.ToLower();
-			var jobResults = await _context.Jobs
-				.Where(j => j.JobTitle.ToLower().Contains(lowerJobTitle))
-				.Select(j => new JobDto
-				{
-					JobId = j.JobId,
-					JobTitle = j.JobTitle,
-					CompanyName = j.CompanyName,
-					City = j.City,
-					State = j.State,
-					ZipCode = j.ZipCode,
-					SalaryRange = j.SalaryRange,
-					JobDescription = j.JobDescription,
-					ExperienceLevel = j.ExperienceLevel
-				}).ToListAsync();
-			if (jobResults == null) { return null; }
-			return jobResults;
+			var job = await _context.Jobs.FindAsync(id);
+			if (job== null)
+			{
+				return null;
+			}
+			return new JobDto
+			{
+				JobId = job.JobId,
+				JobTitle = job.JobTitle,
+				CompanyName = job.CompanyName,
+				Location = job.Location,
+				SalaryRange = job.SalaryRange,
+				JobDescription = job.JobDescription,
+				ExperienceLevel = job.ExperienceLevel
+			};
 		}
-		public async Task<List<JobDto>> GetJobByCompanyName(string companyName)
+		public async Task<IEnumerable<Job>> SearchJobsAsync(string? jobTitle, string? companyName, string? location, string? keyWords)
 		{
-			var lowerCompanyName = companyName.ToLower();
-			var jobResults = await _context.Jobs
-				.Where(j => j.CompanyName.ToLower().Contains(lowerCompanyName))
-				.Select(j => new JobDto
-				{
-					JobId = j.JobId,
-					JobTitle = j.JobTitle,
-					CompanyName = j.CompanyName,
-					City = j.City,
-					State = j.State,
-					ZipCode = j.ZipCode,
-					SalaryRange = j.SalaryRange,
-					JobDescription = j.JobDescription,
-					ExperienceLevel = j.ExperienceLevel
-				}).ToListAsync();
-			if (jobResults == null) { return null; }
-			return jobResults;
+			var query = _context.Jobs.AsQueryable();
+
+			if (!string.IsNullOrEmpty(jobTitle))
+			{
+				query = query.Where(j => j.JobTitle.Contains(jobTitle));
+			}
+
+			if (!string.IsNullOrEmpty(companyName))
+			{
+				query = query.Where(j => j.CompanyName.Contains(companyName));
+			}
+
+			if (!string.IsNullOrEmpty(location))
+			{
+				query = query.Where(j => j.Location.Contains(location));
+			}
+
+			if (!string.IsNullOrEmpty(keyWords))
+			{
+				query = query.Where(j => j.JobDescription.Contains(keyWords));
+			}
+
+			return await query.ToListAsync();
 		}
 		
-		public async Task<List<JobDto>> GetJobByKeyWords(string keyWords)
-		{
-			var lowerKeyWords = keyWords.ToLower();
-			var jobResults = await _context.Jobs
-				.Where(j => j.JobDescription.ToLower().Contains(lowerKeyWords))
-				.Select(j => new JobDto
-				{
-					JobId = j.JobId,
-					JobTitle = j.JobTitle,
-					CompanyName = j.CompanyName,
-					City = j.City,
-					State = j.State,
-					ZipCode = j.ZipCode,
-					SalaryRange = j.SalaryRange,
-					JobDescription = j.JobDescription,
-					ExperienceLevel = j.ExperienceLevel
-				}).ToListAsync();
-			if (jobResults == null) { return null; }
-			return jobResults;
-		}
+
 	}
 }

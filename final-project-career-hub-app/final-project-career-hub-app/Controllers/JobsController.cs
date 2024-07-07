@@ -23,25 +23,25 @@ namespace final_project_career_hub_app.Controllers
 			return Ok(jobs);
 		}
 
-		[HttpGet("JobTitle/{jobTitle}")]
-		public async Task<ActionResult<List<JobDto>>> GetJobByJobTitle(string jobTitle)
+		[HttpGet("{id}")]
+		public async Task<ActionResult<JobDto>>GetJobById(int id)
 		{
-			var jobs = await _jobRepository.GetJobByJobTitle(jobTitle);
-			if (jobs == null)
+			var job = await _jobRepository.GetJobByIdAsync(id);
+			if (job == null)
 			{
 				return NotFound();
 			}
-			return Ok(jobs);
+			return Ok(job);
 		}
-		[HttpGet("CompanyName/{companyName}")]
-		public async Task<ActionResult<List<JobDto>>> GetJobByCompanyName(string companyName)
+
+
+		[HttpGet("search")]
+		public async Task<ActionResult<IEnumerable<Job>>> SearchJobs([FromQuery] string? jobTitle, [FromQuery] string? companyName, [FromQuery] string? location, [FromQuery] string? keywords)
 		{
-			var jobs = await _jobRepository.GetJobByCompanyName(companyName);
-			if (jobs == null)
-			{
-				return NotFound();
-			}
+		
+			var jobs = await _jobRepository.SearchJobsAsync(jobTitle, companyName, location, keywords);
 			return Ok(jobs);
 		}
+		
 	}
 }

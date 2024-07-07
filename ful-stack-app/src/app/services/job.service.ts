@@ -1,6 +1,6 @@
 // src/app/services/job.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Job } from '../interface/jobs';
 
@@ -8,7 +8,9 @@ import { Job } from '../interface/jobs';
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = 'https://localhost:5001/api/jobs';
+
+  private apiUrl = 'https://localhost:7135/api/Jobs';
+
   private savedJobs: Job[] = []; // Mock saving jobs locally for this example
 
   constructor(private http: HttpClient) { }
@@ -19,6 +21,22 @@ export class JobService {
 
   getJob(id: number): Observable<Job> {
     return this.http.get<Job>(`${this.apiUrl}/${id}`);
+  }
+  searchJobs(searchData: any): Observable<Job[]>{
+    let params = new HttpParams();
+    if (searchData.jobTitle){
+      params = params.append('jobTitle', searchData.jobTitle);  
+    }
+    if (searchData.companyName) {
+      params = params.append('companyName', searchData.companyName);
+    }
+    if (searchData.location) {
+      params = params.append('location', searchData.location);
+    }
+    if (searchData.keywords) {
+      params = params.append('keywords', searchData.keywords);
+    }
+    return this.http.get<Job[]>(`${this.apiUrl}/search`,{params})
   }
 
   createJob(job: Job): Observable<Job> {

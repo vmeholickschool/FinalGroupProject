@@ -43,18 +43,25 @@
        height: 75px;
        border-radius: 20px;
        align-items: center;
+       justify-content: center; /* Ensure items are centered */
+       margin: 10px 0; /* Add some spacing between lists */
     
     }
     
     ul li {
         background-color: FFF163;
         list-style-type: none;
+        width: 100%;
     }
     
     ul li a {
-        color: #fff; 
+        color: #fff;
         text-decoration: none;
         text-align: center;
+        display: block; /* Ensure the link takes the full height and width */
+        width: 100%; /* Ensures the link is full width */
+        height: 100%; /* Ensures the link is full height */
+        padding: 20px; /* Increase clickable area */
     }
     
     h1{

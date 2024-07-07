@@ -1,10 +1,14 @@
 <!-- src/app/city-info/city-info.component.html -->
 <div>
-    <input [ngModel]="city" placeholder="Enter city name">
-    <button (click)="getCityInfo()">Get City Info</button>
-    <div *ngIf="cityInfo">
-      <h3>{{ cityInfo?.cityName }}, {{ cityInfo?.state }}</h3>
-      <p><strong>Attractions:</strong> {{ cityInfo?.attractions }}</p>
+
+  <input [(ngModel)]="city" placeholder="Enter city name">
+  <p>{{city}}</p>
+  <button (click)="getCityInfo()">Get City Info</button>
+  <div *ngIf="cityInfo">
+    <div *ngif="cityInfo.data">
+      <h3>{{ cityInfo?.data[0].address_string }}</h3>
+      <!-- <p><strong>Attractions:</strong> {{ cityInfo?.attractions }}</p> -->
+
     </div>
   </div>
-  
+</div>
