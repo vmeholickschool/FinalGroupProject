@@ -1,9 +1,11 @@
 // src/app/city-info/city-info.component.ts
 import { Component, OnInit } from '@angular/core';
 import { TripfinderService } from '../../services/tripfinder';
+
 import { FormsModule } from '@angular/forms';
 import { tripadvisor } from '../../interface/tripadvisor';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-city-info',

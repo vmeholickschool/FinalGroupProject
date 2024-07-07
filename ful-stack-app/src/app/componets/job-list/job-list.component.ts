@@ -2,25 +2,32 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../interface/jobs';
+import { JobListService } from '../../services/job-list.service';
+import { SavedJobsService } from '../../services/saved-jobs.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 
 
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
+  imports: [FormsModule, CommonModule,],
+  standalone:true,
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
-  searchQuery: string = '';
-
-  constructor(private jobService: JobService) { }
+ 
+  constructor(private jobListService: JobListService, private jobService: JobService, private savedJobService: SavedJobsService) { }
 
   ngOnInit(): void {
-    this.getJobs();
+    this.jobListService.searchResults$.subscribe(results =>{
+      this.jobs = results;});
   }
 
-  getJobs(query?: string): void {
+  /* getJobs(query?: string): void {
     this.jobService.getJobs().subscribe(jobs => {
       if (query) {
         this.jobs = jobs.filter(job => 
@@ -33,7 +40,7 @@ export class JobListComponent implements OnInit {
         this.jobs = jobs;
       }
     });
-  }
+  } */
 
   viewJob(job: Job): void {
     // Implement view job details functionality if needed
@@ -41,6 +48,6 @@ export class JobListComponent implements OnInit {
 
   saveJob(job: Job): void {
     // Assuming saveJob is implemented in JobService
-    this.jobService.saveJob(job).subscribe();
+    this.savedJobService.saveJob(job);
   }
 }
