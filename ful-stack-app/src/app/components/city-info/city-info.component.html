@@ -3,8 +3,8 @@
     <input [ngModel]="city" placeholder="Enter city name">
     <button (click)="getCityInfo()">Get City Info</button>
     <div *ngIf="cityInfo">
-      <h3>{{ cityInfo?.cityName }}, {{ cityInfo?.state }}</h3>
-      <p><strong>Attractions:</strong> {{ cityInfo?.attractions }}</p>
+      <h3>{{ cityInfo.cityName }}, {{ cityInfo.state }}</h3>
+      <p><strong>Attractions:</strong> {{ cityInfo.attractions }}</p>
     </div>
   </div>
   

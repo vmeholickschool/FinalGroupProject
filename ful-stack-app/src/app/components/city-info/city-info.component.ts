@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TripfinderService } from '../../services/tripfinder';
 import { City } from '../../interface/city';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -11,7 +12,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   templateUrl: './city-info.component.html',
   styleUrls: ['./city-info.component.css'],
   standalone: true,
-  imports: [FormsModule]
+  imports: [FormsModule,CommonModule]
 
 })
 export class CityInfoComponent implements OnInit {
