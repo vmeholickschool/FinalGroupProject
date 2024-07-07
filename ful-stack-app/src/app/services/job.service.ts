@@ -8,7 +8,7 @@ import { Job } from '../interface/jobs';
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = 'https://localhost:5001/api/jobs';
+  private apiUrl = 'https://localhost:7135/api/Jobs';
   private savedJobs: Job[] = []; // Mock saving jobs locally for this example
 
   constructor(private http: HttpClient) { }
