@@ -27,7 +27,7 @@ export class JobListComponent implements OnInit {
       this.jobs = results;});
   }
 
-  /* getJobs(query?: string): void {
+  getJobs(query?: string): void {
     this.jobService.getJobs().subscribe(jobs => {
       if (query) {
         this.jobs = jobs.filter(job => 
@@ -40,14 +40,12 @@ export class JobListComponent implements OnInit {
         this.jobs = jobs;
       }
     });
-  } */
-
-  viewJob(job: Job): void {
-    // Implement view job details functionality if needed
-  }
+  } 
 
   saveJob(job: Job): void {
-    // Assuming saveJob is implemented in JobService
-    this.savedJobService.saveJob(job);
+    this.savedJobService.saveJob(job).subscribe({
+      next: () => console.log('Job saved successfully.'),
+      error: (error) => console.error('Error saving job:', error)
+    });
   }
 }
