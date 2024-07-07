@@ -14,25 +14,16 @@ export class SavedJobsService {
   constructor(private http: HttpClient) { }
 
   getSavedJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(this.apiUrl).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.get<Job[]>(`${this.apiUrl}`);
   }
 
   saveJob(job: Job): Observable<Job> {
-    return this.http.post<Job>(this.apiUrl, job).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.post<Job>(`${this.apiUrl}`, job);
   }
 
-  removeJob(jobId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${jobId}`).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    console.error('An error occurred:', error.error);
-    return throwError('Something bad happened; please try again later.');
+  removeJob(jobId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${jobId}`);
   }
 }
+
+ 

@@ -9,13 +9,12 @@ import { JobListComponent } from './componets/job-list/job-list.component';
 
 export const routes: Routes = [
   { path: 'job-search', component: JobSearchComponent },
-  { path: 'job-list', component: JobListComponent},
+  { path: 'job-list', component: JobListComponent },
   { path: 'saved-jobs', component: SavedJobsComponent },
   { path: 'city-info', component: CityInfoComponent },
   { path: '', redirectTo: '/job-search', pathMatch: 'full' },
   { path: '**', redirectTo: '/job-search' }
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
