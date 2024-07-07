@@ -15,7 +15,6 @@ import { SavedJobsService } from '../../services/saved-jobs.service';
 })
 export class SavedJobsComponent implements OnInit {
   savedJobs: Job[] = [];
-  userId = 'demoUser';
   statuses: string[] = ['Applied', 'Interview Scheduled', 'Pending Interview', 'Offer Received', 'Rejected'];
 
   constructor(private jobService: JobService, private savedJobsService: SavedJobsService) { }
