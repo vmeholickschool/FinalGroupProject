@@ -3,21 +3,23 @@
   <h2>Saved Jobs</h2>
   <div *ngIf="savedJobs && savedJobs.length > 0; else noSavedJobsTemplate">
     <ul class="saved-job-list">
-      <li *ngFor="let job of savedJobs" class="saved-job-item">
-        <h3>{{ job.jobTitle }} at {{ job.companyName }}</h3>
-        <p><strong>Location:</strong> {{ job.location }}</p>
+      <li *ngFor="let savedJob of savedJobs" class="saved-job-item">
+        <h3>{{ savedJob.job.jobTitle || 'Job Title Not Available' }} at {{ savedJob.job.companyName || 'Company Not Available' }}</h3>
+        <p><strong>Location:</strong> {{ savedJob.job.location || 'Location Not Available' }}</p>
         <p><strong>Status:</strong>
-          <select [(ngModel)]="job.status" (change)="updateJobStatus(job, job.status)">
+          <select [(ngModel)]="savedJob.applicationStatus" (change)="updateJobStatus(savedJob, savedJob.applicationStatus)">
             <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
           </select>
         </p>
-        <p><strong>Description:</strong> {{ job.jobDescription }}</p>
-        <p><strong>Salary Range:</strong> {{ job.salaryRange }}</p>
+        <p><strong>Description:</strong> {{ savedJob.job.jobDescription || 'Description Not Available' }}</p>
+        <p><strong>Salary Range:</strong> {{ savedJob.job.salaryRange || 'Salary Range Not Available' }}</p>
       </li>
     </ul>
   </div>
 
   <ng-template #noSavedJobsTemplate>
     <p>No saved jobs found.</p>
+  </ng-template>
+</div>
  
 

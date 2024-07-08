@@ -10,10 +10,8 @@ export class JobListService {
   private searchResultsSource = new BehaviorSubject<Job[]>([]);
   searchResults$ = this.searchResultsSource.asObservable();
 
-  private savedJobs:Job[]=[];
-
   updateSearchResults(results: Job[]) {
+    console.log('Updating search results:', results); // line for debugging
     this.searchResultsSource.next(results);
   }
-  
 }

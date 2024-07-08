@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Job } from '../interface/jobs';
+import { SavedJob } from '../interface/saved_job';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class SavedJobsService {
 
   constructor(private http: HttpClient) {}
 
-  getSavedJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(this.apiUrl);
+  getSavedJobs(): Observable<SavedJob[]> {
+    return this.http.get<SavedJob[]>(this.apiUrl);
   }
 
   saveJob(userId: number, jobId: number, applicationStatus: string): Observable<any> {
@@ -20,7 +20,7 @@ export class SavedJobsService {
     return this.http.post(this.apiUrl, savedJob);
   }
 
-  updateJob(jobId: number, job: Job): Observable<void> {
+  updateJob(jobId: number, job: SavedJob): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${jobId}`, job);
   }
 
