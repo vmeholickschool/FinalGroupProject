@@ -7,22 +7,25 @@ import { SavedJobsService } from '../../services/saved-jobs.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
-
-
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
-  imports: [FormsModule, CommonModule,],
-  standalone:true,
+  imports: [FormsModule, CommonModule],
+  standalone: true,
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
- 
-  constructor(private jobListService: JobListService, private jobService: JobService, private savedJobService: SavedJobsService) { }
+  userId: number = 1; // Assuming a static user ID for this example
+
+  constructor(
+    private jobListService: JobListService,
+    private jobService: JobService,
+    private savedJobService: SavedJobsService
+  ) {}
 
   ngOnInit(): void {
+<<<<<<< HEAD
     this.jobListService.searchResults$.subscribe(results =>{
       this.jobs = results;});
   }
@@ -47,5 +50,17 @@ export class JobListComponent implements OnInit {
       next: () => console.log('Job saved successfully.'),
       error: (error) => console.error('Error saving job:', error)
     });
+=======
+    this.jobListService.searchResults$.subscribe(results => {
+      this.jobs = results;
+    });
+  }
+
+  saveJob(job: Job): void {
+    this.savedJobService.saveJob(this.userId, job.jobId, 'Applied').subscribe(
+      () => console.log('Job saved successfully'),
+      error => console.error('Error saving job', error)
+    );
+>>>>>>> 0c35aeee253463e85e96223f4d0ad3311a573523
   }
 }
