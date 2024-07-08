@@ -5,8 +5,10 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { JobListService } from '../../services/job-list.service';
 
+
 import { SavedJobsService } from '../../services/saved-jobs.service';
 import { Router, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-job-search',
@@ -16,6 +18,7 @@ import { Router, RouterModule } from '@angular/router';
   imports: [FormsModule, CommonModule, RouterModule]
 })
 export class JobSearchComponent implements OnInit {
+
 
   jobSearchResults: Job[] = [];
 
@@ -30,6 +33,7 @@ export class JobSearchComponent implements OnInit {
 
   onSearch(form: NgForm) {
 
+
   jobTitle: string | undefined;
   jobs: Job[] = [];
   companyName: string | undefined;
@@ -42,6 +46,25 @@ export class JobSearchComponent implements OnInit {
   ngOnInit(): void {}
 
   onSearch(form: NgForm): void {
+
+
+
+ 
+
+    const searchData = {
+      jobTitle: form.value.jobTitle,
+      companyName: form.value.companyName,
+      location: form.value.location,
+      keywords: form.value.keywords
+    };
+    this.jobService.searchJobs(searchData).subscribe(
+      (jobSearchResults: Job[]) => {
+        this.jobSearchResults = jobSearchResults;
+        this.jobListService.updateSearchResults(jobSearchResults);
+        this.router.navigate(['/job-list']);
+      },
+      (error) => {
+        console.error('Error searching jobs:', error);
 
       }
     );
@@ -75,7 +98,7 @@ export class JobSearchComponent implements OnInit {
       console.log(this.jobs);
     });
 
-  }
+
 
   saveJob(job: Job): void {
     const userId = 1; // Assuming a static user ID

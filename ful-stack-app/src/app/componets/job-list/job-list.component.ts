@@ -25,10 +25,12 @@ export class JobListComponent implements OnInit {
   ) {}
 
 
+
   ngOnInit(): void {
     this.jobListService.searchResults$.subscribe(results => {
       this.jobs = results;
     });
+
   }
 
   saveJob(job: Job): void {
@@ -57,6 +59,17 @@ export class JobListComponent implements OnInit {
       next: () => console.log('Job saved successfully.'),
       error: (error) => console.error('Error saving job:', error)
     });
+
+    this.jobListService.searchResults$.subscribe(results => {
+      this.jobs = results;
+    });
+  }
+
+  saveJob(job: Job): void {
+    this.savedJobService.saveJob(this.userId, job.jobId, 'Applied').subscribe(
+      () => console.log('Job saved successfully'),
+      error => console.error('Error saving job', error)
+    );
 
   }
 }
