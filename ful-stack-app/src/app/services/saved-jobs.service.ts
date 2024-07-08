@@ -12,6 +12,7 @@ import { Observable, throwError } from 'rxjs';
 export class SavedJobsService {
   private apiUrl = 'https://localhost:7135/api/SavedJob';
 
+
   constructor(private http: HttpClient) {}
 
   getSavedJobs(): Observable<Job[]> {
@@ -28,7 +29,8 @@ export class SavedJobsService {
   }
 
   deleteJob(jobId: number): Observable<void> {
-=======
+
+
   constructor(private http: HttpClient) { }
 
   getSavedJobs(): Observable<Job[]> {
@@ -40,6 +42,13 @@ export class SavedJobsService {
   }
 
   removeJob(jobId: number): Observable<void> {
+
+  
+  updateJob(jobId: number, job: Job): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${jobId}`, job);
+  }
+
+  deleteJob(jobId: number): Observable<void> {
 
     return this.http.delete<void>(`${this.apiUrl}/${jobId}`);
   }
