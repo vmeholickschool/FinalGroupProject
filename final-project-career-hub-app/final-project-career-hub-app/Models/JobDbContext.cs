@@ -20,8 +20,10 @@ public partial class JobDbContext : DbContext
     public virtual DbSet<SavedJob> SavedJobs { get; set; }
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=DefaultConnection");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+  
+    
+    
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

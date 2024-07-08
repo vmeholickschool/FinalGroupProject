@@ -15,36 +15,33 @@ namespace final_project_career_hub_app.Controllers
             _savedJobRepository = savedJobRepository;
         }
 
-        [HttpGet]
-        public IActionResult GetSavedJobs()
+        [HttpGet("{userId}")]
+        public  async Task<ActionResult<IEnumerable<SavedJobCreationDto>>> GetSavedJobs(int userId)
         {
-            var savedJobs = _savedJobRepository.GetAllSavedJobs();
+            var savedJobs = await _savedJobRepository.GetAllSavedJobsAsync(userId);
             return Ok(savedJobs);
         }
 
-        [HttpGet("{id}")]
+        /*[HttpGet("{id}")]
         public IActionResult GetSavedJob(int id)
         {
-            var savedJob = _savedJobRepository.GetSavedJobById(id);
+            var savedJob = _savedJobRepository.GetSavedJobByIdAsync(id);
             if (savedJob == null)
             {
                 return NotFound();
             }
             return Ok(savedJob);
-        }
+        }*/
 
         [HttpPost]
-        public IActionResult CreateSavedJob([FromBody] SavedJobCreationDto savedJobDto)
+        public async Task<ActionResult<SavedJobCreationDto>> PostSavedJob(SavedJobCreationDto savedJobCreationDto)
         {
-            if (ModelState.IsValid)
-            {
-                _savedJobRepository.AddSavedJob(savedJobDto);
-                return Ok();
-            }
-            return BadRequest(ModelState);
+            var addSavedJob = await _savedJobRepository.AddSavedJobAsync(savedJobCreationDto);
+            return CreatedAtAction(nameof(GetSavedJobs), new { userId = addSavedJob.UserId }, addSavedJob);
         }
+        
 
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public IActionResult UpdateSavedJob(int id, [FromBody] SavedJobUpdateDto savedJobDto)
         {
             var savedJob = _savedJobRepository.GetSavedJobById(id);
@@ -72,7 +69,7 @@ namespace final_project_career_hub_app.Controllers
 
             _savedJobRepository.DeleteSavedJob(id);
             return NoContent();
-        }
+        }*/
     }
 }
 

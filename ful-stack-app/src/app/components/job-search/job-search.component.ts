@@ -67,6 +67,7 @@ onSearch(form: NgForm){
       console.log(this.jobs);
     });
   } */
+ 
 
   saveJob(job: Job): void {
     this.jobService.saveJob(job).subscribe();

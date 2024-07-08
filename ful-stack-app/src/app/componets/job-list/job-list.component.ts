@@ -19,6 +19,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
+  job: Job | undefined;
+  userId = 0;
+  applicationStatus = '';
  
   constructor(private jobListService: JobListService, private jobService: JobService, private savedJobService: SavedJobsService) { }
 
@@ -46,8 +49,11 @@ export class JobListComponent implements OnInit {
     // Implement view job details functionality if needed
   }
 
-  saveJob(job: Job): void {
+  saveJob(jobId: number | undefined): void {
+    if (jobId !== undefined){
+      this.savedJobService.saveJob(this.userId, jobId, this.applicationStatus).subscribe();
+    }
     // Assuming saveJob is implemented in JobService
-    this.savedJobService.saveJob(job);
+    
   }
 }
