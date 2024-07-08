@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
-  userId: number = 1; // Assuming a static user ID for this example
+  userId: number = 1; 
 
   constructor(
     private jobListService: JobListService,
@@ -28,6 +28,7 @@ export class JobListComponent implements OnInit {
 
   ngOnInit(): void {
     this.jobListService.searchResults$.subscribe(results => {
+      console.log('Job list updated:', results); // line for debugging
       this.jobs = results;
     });
 

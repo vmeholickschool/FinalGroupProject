@@ -34,6 +34,7 @@ export class JobService {
     if (searchData.keywords) {
       params = params.append('keywords', searchData.keywords);
     }
+    console.log('HTTP Params:', params.toString()); // line for debugging
     return this.http.get<Job[]>(`${this.apiUrl}/search`, { params });
   }
 
@@ -48,4 +49,5 @@ export class JobService {
   deleteJob(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
 }

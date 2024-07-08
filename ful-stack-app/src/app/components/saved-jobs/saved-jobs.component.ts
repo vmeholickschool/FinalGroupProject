@@ -1,6 +1,6 @@
 // src/app/saved-jobs/saved-jobs.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Job } from '../../interface/jobs';
+import { SavedJob } from '../../interface/saved_job';
 import { SavedJobsService } from '../../services/saved-jobs.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule]
 })
 export class SavedJobsComponent implements OnInit {
-  savedJobs: Job[] = [];
+  savedJobs: SavedJob[] = [];
   statuses: string[] = ['Applied', 'Interview Scheduled', 'Pending Interview', 'Offer Received', 'Rejected'];
 
   constructor(private savedJobsService: SavedJobsService) {}
@@ -23,12 +23,23 @@ export class SavedJobsComponent implements OnInit {
   }
 
   getSavedJobs(): void {
-    this.savedJobsService.getSavedJobs().subscribe(jobs => this.savedJobs = jobs);
+    this.savedJobsService.getSavedJobs().subscribe(
+      (response: any) => {
+        console.log('Retrieved saved jobs:', response);
+        this.savedJobs = response.$values || []; 
+        console.log('Saved Jobs array:', this.savedJobs);
+
+        this.savedJobs.forEach(savedJob => console.log('Job Object:', savedJob));
+      },
+      error => {
+        console.error('Error retrieving saved jobs:', error);
+      }
+    );
   }
 
-  updateJobStatus(job: Job, status: string): void {
-    job.status = status;
-    this.savedJobsService.updateJob(job.jobId, job).subscribe(
+  updateJobStatus(savedJob: SavedJob, status: string): void {
+    savedJob.applicationStatus = status;
+    this.savedJobsService.updateJob(savedJob.jobId, savedJob).subscribe(
       () => console.log('Job status updated successfully'),
       error => console.error('Error updating job status', error)
     );

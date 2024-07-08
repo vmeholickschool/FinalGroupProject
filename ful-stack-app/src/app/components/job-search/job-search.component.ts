@@ -57,8 +57,11 @@ export class JobSearchComponent implements OnInit {
       location: form.value.location,
       keywords: form.value.keywords
     };
+    console.log('Search Data:', searchData);
     this.jobService.searchJobs(searchData).subscribe(
-      (jobSearchResults: Job[]) => {
+      (response: any) => {
+        console.log('Job Search Results:', response);
+        const jobSearchResults: Job[] = response.$values || []; 
         this.jobSearchResults = jobSearchResults;
         this.jobListService.updateSearchResults(jobSearchResults);
         this.router.navigate(['/job-list']);
@@ -97,6 +100,7 @@ export class JobSearchComponent implements OnInit {
       }
       console.log(this.jobs);
     });
+
 
 
 
