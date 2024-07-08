@@ -4,12 +4,11 @@ import { Job } from '../../interface/jobs';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { JobListService } from '../../services/job-list.service';
-<<<<<<< HEAD
-import { Router } from '@angular/router';
-=======
+
+
 import { SavedJobsService } from '../../services/saved-jobs.service';
 import { Router, RouterModule } from '@angular/router';
->>>>>>> 0c35aeee253463e85e96223f4d0ad3311a573523
+
 
 @Component({
   selector: 'app-job-search',
@@ -19,20 +18,8 @@ import { Router, RouterModule } from '@angular/router';
   imports: [FormsModule, CommonModule, RouterModule]
 })
 export class JobSearchComponent implements OnInit {
-<<<<<<< HEAD
-  jobTitle: string | undefined;
-  jobs: Job[] = [];
-  companyName: string | undefined;
-  location: string | undefined;
-  keyWords: string | undefined;
-  jobSearchResults: Job[] = [];
 
-  constructor(private jobService: JobService, private jobListService: JobListService, private router: Router) { }
 
-  ngOnInit(): void {}
-
-  onSearch(form: NgForm): void {
-=======
   jobSearchResults: Job[] = [];
 
   constructor(
@@ -45,7 +32,25 @@ export class JobSearchComponent implements OnInit {
   ngOnInit(): void {}
 
   onSearch(form: NgForm) {
->>>>>>> 0c35aeee253463e85e96223f4d0ad3311a573523
+
+
+  jobTitle: string | undefined;
+  jobs: Job[] = [];
+  companyName: string | undefined;
+  location: string | undefined;
+  keyWords: string | undefined;
+  jobSearchResults: Job[] = [];
+
+  constructor(private jobService: JobService, private jobListService: JobListService, private router: Router) { }
+
+  ngOnInit(): void {}
+
+  onSearch(form: NgForm): void {
+
+
+
+ 
+
     const searchData = {
       jobTitle: form.value.jobTitle,
       companyName: form.value.companyName,
@@ -60,10 +65,11 @@ export class JobSearchComponent implements OnInit {
       },
       (error) => {
         console.error('Error searching jobs:', error);
-<<<<<<< HEAD
+
       }
     );
-  }
+
+
 
   getJobs(query?: string): void {
     this.jobService.getJobs().subscribe(jobs => {
@@ -91,11 +97,8 @@ export class JobSearchComponent implements OnInit {
       }
       console.log(this.jobs);
     });
-=======
-      }
-    );
->>>>>>> 0c35aeee253463e85e96223f4d0ad3311a573523
-  }
+
+
 
   saveJob(job: Job): void {
     const userId = 1; // Assuming a static user ID

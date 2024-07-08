@@ -24,11 +24,20 @@ export class JobListComponent implements OnInit {
     private savedJobService: SavedJobsService
   ) {}
 
+
+
   ngOnInit(): void {
-<<<<<<< HEAD
-    this.jobListService.searchResults$.subscribe(results =>{
-      this.jobs = results;});
+    this.jobListService.searchResults$.subscribe(results => {
+      this.jobs = results;
+    });
+
   }
+
+  saveJob(job: Job): void {
+    this.savedJobService.saveJob(this.userId, job.jobId, 'Applied').subscribe(
+      () => console.log('Job saved successfully'),
+      error => console.error('Error saving job', error)
+    );
 
   getJobs(query?: string): void {
     this.jobService.getJobs().subscribe(jobs => {
@@ -50,7 +59,7 @@ export class JobListComponent implements OnInit {
       next: () => console.log('Job saved successfully.'),
       error: (error) => console.error('Error saving job:', error)
     });
-=======
+
     this.jobListService.searchResults$.subscribe(results => {
       this.jobs = results;
     });
@@ -61,6 +70,6 @@ export class JobListComponent implements OnInit {
       () => console.log('Job saved successfully'),
       error => console.error('Error saving job', error)
     );
->>>>>>> 0c35aeee253463e85e96223f4d0ad3311a573523
+
   }
 }

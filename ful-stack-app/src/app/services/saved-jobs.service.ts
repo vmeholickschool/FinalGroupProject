@@ -12,19 +12,7 @@ import { Observable, throwError } from 'rxjs';
 export class SavedJobsService {
   private apiUrl = 'https://localhost:7135/api/SavedJob';
 
-<<<<<<< HEAD
-  constructor(private http: HttpClient) { }
 
-  getSavedJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(`${this.apiUrl}`);
-  }
-
-  saveJob(job: Job): Observable<Job> {
-    return this.http.post<Job>(`${this.apiUrl}`, job);
-  }
-
-  removeJob(jobId: number): Observable<void> {
-=======
   constructor(private http: HttpClient) {}
 
   getSavedJobs(): Observable<Job[]> {
@@ -41,7 +29,27 @@ export class SavedJobsService {
   }
 
   deleteJob(jobId: number): Observable<void> {
->>>>>>> 0c35aeee253463e85e96223f4d0ad3311a573523
+
+
+  constructor(private http: HttpClient) { }
+
+  getSavedJobs(): Observable<Job[]> {
+    return this.http.get<Job[]>(`${this.apiUrl}`);
+  }
+
+  saveJob(job: Job): Observable<Job> {
+    return this.http.post<Job>(`${this.apiUrl}`, job);
+  }
+
+  removeJob(jobId: number): Observable<void> {
+
+  
+  updateJob(jobId: number, job: Job): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${jobId}`, job);
+  }
+
+  deleteJob(jobId: number): Observable<void> {
+
     return this.http.delete<void>(`${this.apiUrl}/${jobId}`);
   }
 }
