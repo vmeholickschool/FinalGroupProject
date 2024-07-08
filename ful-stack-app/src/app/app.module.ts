@@ -14,26 +14,30 @@ import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component
 import { JobListService } from './services/job-list.service';
 import { JobListComponent } from './componets/job-list/job-list.component';
 import { SavedJobsService } from './services/saved-jobs.service';
+import { bootstrapApplication } from '@angular/platform-browser';
+
 
 
 
 
 @NgModule({
-  declarations: [],
+
 
   imports: [
       BrowserModule,
+      AppComponent,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
       RouterModule,
       CityInfoComponent, 
-      AppComponent,
       JobSearchComponent,
       SavedJobsComponent,
       JobListComponent
     ],
   providers: [JobService, TripfinderService,JobListService, SavedJobsService],
-  bootstrap: []
+  
+  
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }
