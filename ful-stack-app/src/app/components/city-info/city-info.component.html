@@ -1,5 +1,6 @@
 <!-- src/app/city-info/city-info.component.html -->
 <div>
+
   <input [(ngModel)]="city" placeholder="Enter city name">
   <p>{{city}}</p>
   <button (click)="getCityInfo()">Get City Info</button>
@@ -7,6 +8,7 @@
     <div *ngif="cityInfo.data">
       <h3>{{ cityInfo?.data[0].address_string }}</h3>
       <!-- <p><strong>Attractions:</strong> {{ cityInfo?.attractions }}</p> -->
+
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TripfinderService } from '../../services/tripfinder';
 
+
 import { FormsModule } from '@angular/forms';
 import { tripadvisor } from '../../interface/tripadvisor';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './city-info.component.html',
   styleUrls: ['./city-info.component.css'],
   standalone: true,
+
   imports: [FormsModule, CommonModule]
+
 
 })
 export class CityInfoComponent implements OnInit {

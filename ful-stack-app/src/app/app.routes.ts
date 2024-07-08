@@ -14,7 +14,6 @@ export const routes: Routes = [
   { path: '', redirectTo: '/job-search', pathMatch: 'full' },
   { path: '**', redirectTo: '/job-search' }
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

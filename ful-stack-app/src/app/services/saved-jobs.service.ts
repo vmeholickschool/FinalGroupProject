@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Job } from '../interface/jobs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +28,21 @@ export class SavedJobsService {
   }
 
   deleteJob(jobId: number): Observable<void> {
+=======
+  constructor(private http: HttpClient) { }
+
+  getSavedJobs(): Observable<Job[]> {
+    return this.http.get<Job[]>(`${this.apiUrl}`);
+  }
+
+  saveJob(job: Job): Observable<Job> {
+    return this.http.post<Job>(`${this.apiUrl}`, job);
+  }
+
+  removeJob(jobId: number): Observable<void> {
+
     return this.http.delete<void>(`${this.apiUrl}/${jobId}`);
   }
 }
+
+ 
