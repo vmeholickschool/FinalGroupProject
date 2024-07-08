@@ -8,12 +8,9 @@ import { Job } from '../interface/jobs';
   providedIn: 'root'
 })
 export class JobService {
-
   private apiUrl = 'https://localhost:7135/api/Jobs';
 
-  private savedJobs: Job[] = []; // Mock saving jobs locally for this example
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(this.apiUrl);
@@ -22,9 +19,10 @@ export class JobService {
   getJob(id: number): Observable<Job> {
     return this.http.get<Job>(`${this.apiUrl}/${id}`);
   }
-  searchJobs(searchData: any): Observable<Job[]>{
+
+  searchJobs(searchData: any): Observable<Job[]> {
     let params = new HttpParams();
-    if (searchData.jobTitle){
+    if (searchData.jobTitle) {
       params = params.append('jobTitle', searchData.jobTitle);  
     }
     if (searchData.companyName) {
@@ -36,7 +34,7 @@ export class JobService {
     if (searchData.keywords) {
       params = params.append('keywords', searchData.keywords);
     }
-    return this.http.get<Job[]>(`${this.apiUrl}/search`,{params})
+    return this.http.get<Job[]>(`${this.apiUrl}/search`, { params });
   }
 
   createJob(job: Job): Observable<Job> {
@@ -49,20 +47,5 @@ export class JobService {
 
   deleteJob(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  saveJob(job: Job): Observable<void> {
-    this.savedJobs.push(job);
-    return new Observable<void>((observer) => {
-      observer.next();
-      observer.complete();
-    });
-  }
-
-  getSavedJobs(): Observable<Job[]> {
-    return new Observable<Job[]>((observer) => {
-      observer.next(this.savedJobs);
-      observer.complete();
-    });
   }
 }

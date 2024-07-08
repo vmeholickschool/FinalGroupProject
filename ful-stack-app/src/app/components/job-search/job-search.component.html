@@ -1,72 +1,53 @@
 <div class="grid-container">
-
     <main class="main">
-            <form #searchForm="ngForm" (ngSubmit)="onSearch(searchForm)">
-                <h1>TechQuest Jobs</h1>
-            
-                <div class="form-container">
-
-                        <div class="form-group">
-                            <label for="jobTitle">Job Title</label>
-                            <input type="text" id="jobTitle"  name="jobTitle" placeholder="Type In Job Title" ngModel>
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="company">Company</label>
-                            <input type="text" id="companyName" name="companyName" placeholder="Company Name" ngModel>
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input type="text" id="location" name="location" placeholder="City, State, or Zip" ngModel>
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="keyWords">Key Words</label>
-                            <input type="text" id="keyWords" name="keyWords" placeholder="Type In Keywords" ngModel>
-                        </div>
-                    
-                        <button type="submit" class="button">Search</button>
-                </div>
-            </form>
-            <div *ngIf="jobSearchResults.length >0">
-                <h2>Search Results</h2>
-                <div *ngFor="let job of jobSearchResults">
-                    <h3>{{job.jobTitle}}</h3>
-
-                </div>
-            </div>
+      <form #searchForm="ngForm" (ngSubmit)="onSearch(searchForm)">
+        <h1>TechQuest Jobs</h1>
+        <div class="form-container">
+          <div class="form-group">
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" name="jobTitle" placeholder="Type In Job Title" ngModel>
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="companyName" name="companyName" placeholder="Company Name" ngModel>
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="City, State, or Zip" ngModel>
+          </div>
+          <div class="form-group">
+            <label for="keyWords">Key Words</label>
+            <input type="text" id="keyWords" name="keyWords" placeholder="Type In Keywords" ngModel>
+          </div>
+          <button type="submit" class="button">Search</button>
+        </div>
+      </form>
+      <div *ngIf="jobSearchResults.length > 0">
+        <h2>Search Results</h2>
+        <div *ngFor="let job of jobSearchResults">
+          <h3>{{ job.jobTitle }}</h3>
+          <button (click)="saveJob(job)">Save Job</button>
+        </div>
+      </div>
     </main>
-
-
-        <!-- ASIDE -->
-     <aside>
-            <ul>
-                <li> <a href="#">My Jobs</a></li>
-            </ul>
-            
-            <ul>
-                <li> <a href="#">Saved Jobs</a></li>
-
-            </ul> 
-
-            <ul>
-                <li> <a href="#">City Inform.</a></li>
-            </ul>
-     </aside>
-
-
-        <!-- FOOTER -->
+    
+    <!-- ASIDE -->
+    <aside>
+      <ul>
+        <li><a [routerLink]="['/saved-jobs']">Saved Jobs</a></li>
+      </ul>
+      <ul>
+        <li><a [routerLink]="['/city-info']">City Information</a></li>
+      </ul>
+    </aside>
+    
+    <!-- FOOTER -->
     <footer>
-
-        <address>
-            Company info
-            address, phone number, email 
-        </address>
-
-        <p>&copy; 2024 TechQuest Jobs. All Rights Reserved.</p>
-
+      <address>
+        Company info
+        address, phone number, email 
+      </address>
+      <p>&copy; 2024 TechQuest Jobs. All Rights Reserved.</p>
     </footer>
-
-</div>
+  </div>
   
