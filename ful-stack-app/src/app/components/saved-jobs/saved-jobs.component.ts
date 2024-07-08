@@ -26,10 +26,9 @@ export class SavedJobsComponent implements OnInit {
     this.savedJobsService.getSavedJobs().subscribe(
       (response: any) => {
         console.log('Retrieved saved jobs:', response);
-        this.savedJobs = response.$values || []; // Extracting the jobs from the nested structure
+        this.savedJobs = response.$values || []; 
         console.log('Saved Jobs array:', this.savedJobs);
 
-        // Logging each job object to inspect its structure
         this.savedJobs.forEach(savedJob => console.log('Job Object:', savedJob));
       },
       error => {
