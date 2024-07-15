@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Jobs</title>
+
+    <style>
+      th, td {
+        border: 3px solid #2c2c2c;
+        padding: 5px;
+      }
+    
+      table {
+        border-color: #2c2c2c;
+        border: 53px solid #2c2c2c;
+        border-top: 35px;
+        text-align: center;
+        margin: 0 auto;
+        caption-side: top;
+      }
+    
+      table caption {
+        font-weight: bold;
+        font-size: 28px;
+        padding: 10px;
+        background-color: #2c2c2c;
+        color: #fff;
+      }
+    
+      table tfoot {
+        font-size: 18px;
+        background-color: #f1f1f1;
+        color: #2c2c2c;
+        padding: 10px 0;
+      }
+    
+      table tfoot a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 20px;
+        font-weight: bolder;
+      }
+
+
+      .home{
+        color: #fff;
+        background-color: #2c2c2c;
+      
+      }
+
+      table td.home:hover, a:hover {
+        color:rgb(21, 87, 141);
+      }
+    </style>
+    
+    <body>
+      <table id="job-table">
+        <caption>Best Jobs</caption>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Location</th>
+            <th>Salary Range</th>
+            <th>Company</th>
+            <th>Details</th>
+            <th>Saved</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6" class="home">
+              <a href="./project.html">Home</a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+  <script>
+    // Test Data
+    const data = [
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "85,000 to 100,000", company: "amazon", details: "still hiring", "saved": true },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "60,000 to 100,000", company: "Rocket", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "75,000 to 100,000", company: "amazon", details: "not hiring", "saved": false },
+      { "job-title": 'senior developer', location: "Ann Arbor", "salary-range": "105,000 to 100,000", company: "google", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "85,000 to 100,000", company: "amazon", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "60,000 to 100,000", company: "Rocket", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "75,000 to 100,000", company: "amazon", details: "not hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "85,000 to 100,000", company: "amazon", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "60,000 to 100,000", company: "Rocket", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "75,000 to 100,000", company: "amazon", details: "not hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "85,000 to 100,000", company: "amazon", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "60,000 to 100,000", company: "Rocket", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "75,000 to 100,000", company: "amazon", details: "not hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "85,000 to 100,000", company: "amazon", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "60,000 to 100,000", company: "Rocket", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "75,000 to 100,000", company: "amazon", details: "not hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "85,000 to 100,000", company: "amazon", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "60,000 to 100,000", company: "Rocket", details: "still hiring", "saved": false },
+      { "job-title": 'junior developer', location: "Ann Arbor", "salary-range": "75,000 to 100,000", company: "amazon", details: "not hiring", "saved": false },
+
+
+    ];
+
+    const tableBody = document.getElementById("job-table").querySelector('tbody');
+
+    function addRowToTable(job) {
+      const row = document.createElement('tr');
+
+      const titleCell = document.createElement('td');
+      titleCell.textContent = job["job-title"] || '-';
+
+      const locationCell = document.createElement('td');
+      locationCell.textContent = job.location || '-';
+
+      const salaryRangeCell = document.createElement('td');
+      salaryRangeCell.textContent = job["salary-range"] || '-';
+
+      const companyCell = document.createElement('td');
+      companyCell.textContent = job.company || '-';
+
+      const detailsCell = document.createElement('td');
+      detailsCell.textContent = job.details || '-';
+
+      const savedCell = document.createElement('td');
+      const savedCheckbox = document.createElement('input');
+
+      
+      savedCheckbox.type = 'checkbox';
+      savedCheckbox.checked = job.saved;
+
+      
+      savedCell.appendChild(savedCheckbox);
+
+      row.appendChild(titleCell);
+      row.appendChild(locationCell);
+      row.appendChild(salaryRangeCell);
+      row.appendChild(companyCell);
+      row.appendChild(detailsCell);
+      row.appendChild(savedCell);
+
+      tableBody.appendChild(row);
+    }
+
+    data.forEach(item => addRowToTable(item));
+  </script>
+</body>
+</html>
